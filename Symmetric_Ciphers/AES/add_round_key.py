@@ -18,11 +18,10 @@ def matrix2bytes(matrix):
     return ''.join(map(chr,(matrix[0]+matrix[1]+matrix[2]+matrix[3])))
 
 def add_round_key(s, k):
-    
-    state_res=state
+    state_res=s
     for i in range(0,4):
         for j in range(0,4):
-            state_res[i][j]=state[i][j] ^ round_key[i][j]
+            state_res[i][j]=s[i][j] ^ k[i][j]
             #print(round_key[0][0])
     return state_res
 
