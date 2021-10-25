@@ -30,11 +30,18 @@ p = "0xde26ab651b92a129"
 A = "0x5cf7b6f5f1b5dccc"
 B = "0xcdb94eb898f33f41"
 x = 0
+p_int = int(p,0)
+g_int = int(g,0)
+A_int = int(A,0)
 
+print("p : ", p_int)
+print("g : ", g_int)
+print("A : ", A_int)
 
-for i in range(1,int(p,0)):
-    A_temp = pow(int(g,0),i,int(p,0))
-    if (A_temp==int(A,0)):
+for i in range(1,p_int):
+    A_temp = pow(g_int,i,p_int)
+    #print(p_int, " - ", i)
+    if (A_temp==A_int):
         x = i
         break
 
