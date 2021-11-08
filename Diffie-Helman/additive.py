@@ -1,5 +1,6 @@
 from Crypto.Cipher import AES
 from Crypto.Util.Padding import pad, unpad
+from sympy.ntheory import discrete_log
 import hashlib
 
 #Intercepted from Alice: 
@@ -32,7 +33,12 @@ def decrypt_flag(shared_secret: int, iv: str, ciphertext: str):
     else:
         return plaintext.decode('ascii')
 
-b = int(from_bob["B"], base=16)/int(from_alice["g"], base=16)        
+#b = int(from_bob["B"], base=16)/int(from_alice["g"], base=16)   
+print(int(from_alice["p"], base=16))  
+#b = discrete_log(int(from_alice["p"], base=16),int(from_bob["B"], base=16),int(from_alice["g"], base=16))  
+b = pow(int(from_bob["B"], base=16),1,int(from_alice["p"], base=16)) 
+print (b)
+print (pow(int(from_bob["A"], base=16),1,int(from_alice["p"], base=16)))
 B = int(from_bob["B"], base=16)
 p = int(from_alice["p"], base=16)
 
