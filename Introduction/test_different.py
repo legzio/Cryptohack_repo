@@ -1,11 +1,7 @@
-from base64 import b64encode, b64decode
+from Crypto.Util.number import bytes_to_long, inverse, long_to_bytes
 
-string = 'Litwo! Ojczyzno moja. Ty jestes jak zdrowie.'.encode()
+key = "MFswDQYJKoZIhvcNAQEBBQADSgAwRwJATKIe3jfj1qY7zuX5Eg0JifAUOq6RUwLzRuiru4QKcvtW0Uh1KMp1GVt4MmKDiQksTok/pKbJsBFCZugFsS3AjQIDAQAB"
+n_int = int(n,base='ascii')
 
-secret = b64encode(string)
+print(n)
 
-print (secret)
-
-plain = b64decode(secret)
-
-print (plain)
