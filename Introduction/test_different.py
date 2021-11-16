@@ -1,8 +1,30 @@
-from Crypto.Util.number import bytes_to_long, inverse, long_to_bytes
-from base64 import b64decode
+from binascii import unhexlify
 
-key = b'MFswDQYJKoZIhvcNAQEBBQADSgAwRwJATKIe3jfj1qY7zuX5Eg0JifAUOq6RUwLzRuiru4QKcvtW0Uh1KMp1GVt4'
-n_int = b64decode(key)
+def brute(input, key):
+    if len(input) != len(key):
+        return "Failed!"
 
-print(bytes_to_long(n_int))
+    output = b''
+    for b1, b2 in zip(input, key):
+        output += bytes([b1 ^ b2])
+    try:
+        return output.decode("utf-8")
+    except:
+        return "Cannot Decode some bytes"
 
+data = "0e0b213f26041e480b26217f27342e175d0e070a3c5b103e2526217f27342e175d0e077e263451150104"
+cipher = unhexlify(data)
+print("[-] CIPHER: {}".format(cipher))
+
+# First Step
+key_part = brute(cipher[:7], "crypto{".encode())
+print("[-] PARTIAL KEY FOUND: {}".format(key_part))
+
+# Second Step
+key = (key_part + "y").encode()
+key += key * int((len(cipher) - len(key))/len(key))
+key += key[:((len(cipher) - len(key))%len(key))]
+print("[-] Decoding using KEY: {}".format(key))
+
+plain = brute(cipher, key)
+print("\n[*] FLAG: {}".format(plain))
